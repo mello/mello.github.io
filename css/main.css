@@ -2,6 +2,7 @@
   /* root color variables */
   --bright-blue: #007bff;
   --nd-blue: #20364c;
+  --dartmouth: #00693e;
   --body-background: #f6f7fb;
   --ghost-white: ghostwhite;
   --alice-blue: aliceblue;
@@ -283,7 +284,7 @@ h3:after {
 /* Navbar -------------------------------------------- */
 .bg-navbar,
 .bg-footer {
-  background: var(--nd-blue);
+  background: var(--dartmouth);
 }
 
 #page-navbar nav {
