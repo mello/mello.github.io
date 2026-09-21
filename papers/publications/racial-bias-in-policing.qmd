@@ -1,0 +1,27 @@
+---
+title: "A few bad apples? Racial bias in policing"
+weight: 3
+authors:
+  - name: "Felipe Gonçalves"
+    url: "https://www.fmgoncalves.com/"
+venue: "*American Economic Review*, 111(5), May 2021"
+pdf: ""
+publisher: "https://www.aeaweb.org/articles?id=10.1257/aer.20181607"
+abstract: |
+  We estimate the degree to which individual police officers practice racial discrimination. Using a bunching estimation design and data from the Florida Highway Patrol, we show that minorities are less likely to receive a discount on their speeding tickets than White drivers. Disaggregating this difference to the individual police officer, we estimate that 42 percent of officers practice discrimination. We then apply our officer-level discrimination measures to various policy-relevant questions in the literature. In particular, reassigning officers across locations based on their lenience can effectively reduce the aggregate disparity in treatment.
+bibtex: |
+  @article{gm_apples,
+    title   = {A Few Bad Apples? Racial Bias in Policing},
+    author  = {Gon{\c c}alves, Felipe and Mello, Steven},
+    journal = {American Economic Review},
+    volume  = {111},
+    number  = {5},
+    pages   = {1406--1441},
+    year    = {2021},
+    month   = may,
+    doi     = {10.1257/aer.20181607}
+  }
+prepub: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3627809"
+replication: "https://www.openicpsr.org/openicpsr/project/120242/version/V1/view"
+nberwp: ""
+---

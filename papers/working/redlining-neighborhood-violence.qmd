@@ -1,0 +1,17 @@
+---
+title: "Historical redlining and disparities in neighborhood violence"
+weight: 3
+authors:
+  - name: "Aaron Cho"
+    url: ""
+status: "Revise and resubmit"
+pdf: "redlining_disparities.pdf"
+nber: ""
+abstract: |
+  We use geocoded data on gun violence incidents to document disparities in exposure to neighborhood violence by race and income. We then explore the historical roots of these disparities, using a border discontinuity design approach to estimate the causal effect of “redlining” policies during the Great Depression on contemporary gun violence. The prevalence of gun violence changes sharply at borders associated with changes in creditworthiness designations in the 1930’s. A decomposition exercise suggests that five percent of contemporary group disparities in exposure to neighborhood violence can be explained by the persistent effects of historical “redlining.”
+bibtex: ""
+prepub: ""
+replication: ""
+nberwp: ""
+journal_name: "Journal of Urban Economics: Insights"
+---

@@ -1,0 +1,21 @@
+---
+title: "The value of policing: Measuring the tradeoff between crime control and use of force"
+weight: 4
+authors:
+  - name: "Justin Holz"
+    url: "https://www.justinholz.com/home"
+  - name: "Andrew Jordan"
+    url: "https://sites.google.com/view/andrewjordanecon/home"
+  - name: "Taeho Kim"
+    url: "https://sites.google.com/view/taeho-kim/home?pli=1&authuser=0"
+status: ""
+pdf: "wtp_force.pdf"
+nber: ""
+abstract: |
+  We provide estimates to inform the potential tradeoff between the crime reduction benefits and social costs associated with investments in policing. Using stated-choice experiments in an original survey, we estimate willingness to pay for reductions in violent crime and police use of force. Our survey results indicate that citizens are willing to accept four additional violent crimes in return for one fewer force incident. Accounting for these costs has important implications for studies of police cost-effectiveness. Original estimates of the causal effects of marginal officers on crime and use of force, using day-to-day variation in predetermined staffing levels, show an empirically important role for force in cost-benefit calculations.
+bibtex: ""
+prepub: ""
+replication: ""
+nberwp: ""
+journal_name: ""
+---

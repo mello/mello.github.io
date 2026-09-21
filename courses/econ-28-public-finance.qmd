@@ -1,0 +1,28 @@
+---
+title: "Economics 28: Public Finance and Public Policy"
+weight: 2
+term: ""
+description: |
+  Government policies exert a pervasive influence over the economy and the welfare of its inhabitants. This course aims to provide an understanding of the reasons for government intervention in the economy, as well as conceptual tools for analyzing the benefits of potential government policies and the reactions of individuals to policy interventions. The course first examines inequality and redistribution through the tax system. Next, it covers social insurance, externalities, public goods, and local government functions. Several lectures will be devoted to specific policy areas such as health care and the criminal justice system. A central goal of the course is to connect core economic concepts to current, real-world policy debates such as proposals for Medicare for All, Universal Basic Income, or defunding the police.  
+syllabus: "syllabus_econ28.pdf"
+page-layout: article
+---
+
+<!-- Fields this file can carry (each is optional; a field left out simply
+     produces no element on the Teaching page):
+
+       title        course number and name
+       weight       ordering on the Teaching page (lower = higher up)
+       term         the line under the title, e.g. "Fall 2020, 2021, 2022, 2025"
+       description  text inside the "Description" pill
+       syllabus     "econ28-syllabus.pdf" (a file in files/) or a full URL
+       course_site  full URL to a Canvas/course site (NOT `website` --
+                    that is a reserved Quarto key, see _course.ejs)
+       link         makes the TITLE clickable; omit and the title is plain text
+
+     Course sub-pages are not built yet. When they are, see the note in
+     _course.ejs — one line switches every title to link to its own page. -->
+
+## Overview
+
+PLACEHOLDER. This sub-page is not linked from the Teaching page yet.

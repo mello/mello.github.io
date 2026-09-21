@@ -1,0 +1,24 @@
+---
+title: "More COPS, less crime"
+weight: 4
+authors: []
+venue: "*Journal of Public Economics*, 172, April 2019"
+pdf: ""
+publisher: "https://www.sciencedirect.com/science/article/abs/pii/S0047272718302305"
+abstract: |
+  I exploit a natural experiment to estimate the causal effect of police on crime. The American Recovery and Reinvestment Act increased funding for the Community Oriented Policing Services (COPS) hiring grant program from less than $20 million over 2005–2008 to $1 billion in 2009. Hiring grants distributed in 2009 were allocated according to an application score cutoff rule, and I leverage quasi-random variation in grant receipt by comparing the change over time in police and crimes for cities above and below the threshold in a difference-in-differences framework. Relative to low-scoring cities, those above the cutoff experience increases in police of about 3.2% and declines in victimization cost-weighted crime of about 3.5% following the distribution of hiring grants. The effects are driven by large and statistically significant effects of police on robbery, larceny, and auto theft, with suggestive evidence that police reduce murders as well. Crime reductions associated with additional police were more pronounced in areas most affected by the Great Recession. The results highlight that fiscal support to local governments for crime prevention may offer large returns, especially during bad macroeconomic times.
+bibtex: |
+  @article{mello_cops,
+    title   = {More COPS, Less Crime},
+    author  = {Mello, Steven},
+    journal = {Journal of Public Economics},
+    volume  = {172},
+    pages   = {174--200},
+    year    = {2019},
+    month   = apr,
+    doi     = {10.1016/j.jpubeco.2018.12.003}
+  }
+prepub: "cops.pdf"
+replication: "https://github.com/mello/cops"
+nberwp: ""
+---

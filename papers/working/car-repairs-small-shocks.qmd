@@ -1,0 +1,20 @@
+---
+title: "The big economic consequences of small shocks: Evidence from car repairs"
+weight: 5
+authors:
+  - name: "Andrew Barr"
+    url: "https://people.tamu.edu/~abarr/Andrew_Barr.html"
+  - name: "Jonathan Eggleston"
+    url: "https://www.census.gov/newsroom/bios/jonathan-eggleston.html"
+  - name: "Alexander Smith"
+    url: "https://www.alexanderaptsmith.com/"
+status: ""
+pdf: ""
+nber: ""
+abstract: |
+  Unexpected expenses are common and can have significant economic consequences, particularly for individuals with limited financial buffers. This paper examines the long-term effects of modest financial shocks stemming from minor car crashes. Leveraging a unique dataset combining car crash reports with Census and tax records, we estimate the causal impacts of these shocks on employment, earnings, and related indicators of economic and social well-being. We find that such shocks lead to persistent setbacks in employment and earnings, particularly among financially vulnerable populations. These effects are substantially mitigated during periods of higher liquidity and among individuals with access to greater social supports. 
+bibtex: ""
+prepub: ""
+replication: ""
+nberwp: ""
+---

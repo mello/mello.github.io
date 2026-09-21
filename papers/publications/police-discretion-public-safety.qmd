@@ -1,0 +1,28 @@
+---
+title: "Police discretion and public safety"
+weight: 1
+authors:
+  - name: "Felipe Gonçalves"
+    url: "https://www.fmgoncalves.com/"
+venue: "Forthcoming, *Journal of Political Economy Microeconomics*"
+pdf: ""
+publisher: "https://www.journals.uchicago.edu/doi/epdf/10.1086/738382"
+abstract: |
+  We study the implications of police discretion for public safety. Highway patrol officers exercise discretion over fines by deviating from statutory fine rules. Relying on variation across officers in this discretionary behavior, we find that harsher sanctions reduce future traffic offending and crash involvement. We then show that officer discretion over sanctions decreases public safety by comparing observed reoffending rates with those in a counterfactual without discretion, estimated using a novel approach leveraging officers who practice no discretion. About half the safety cost of discretion is due to officer decisions which result in harsh sanctions for motorists who are least deterred by them. We provide evidence that this officer behavior is attributable to a preference for allocating harsh fines to motorists with higher recidivism risk, who are also the least responsive to harsher sanctions.
+bibtex: |
+  @techreport{gm_discretion,
+    title       = {Police Discretion and Public Safety},
+    author      = {Gon{\c c}alves, Felipe and Mello, Steven},
+    institution = {National Bureau of Economic Research},
+    type        = {Working Paper},
+    series      = {NBER Working Paper Series},
+    number      = {31678},
+    year        = {2023},
+    month       = sep,
+    doi         = {10.3386/w31678},
+    url         = {https://www.nber.org/papers/w31678}
+  }
+prepub: "deterrence_prepublication.pdf"
+replication: "https://doi.org/10.7910/DVN/KQVTUH"
+nberwp: "31678"
+---

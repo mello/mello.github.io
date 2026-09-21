@@ -1,0 +1,617 @@
+/*-- scss:defaults --*/
+
+/* Copied from marvinschmitt/quarto-website-template (html/styles.scss), which
+   in turn credits andrewheiss/ath-quarto. Values are his; the only change is
+   this header comment. Deviations for Steve's site should be added at the
+   bottom, marked TUNE, rather than edited inline — so the copy stays legible. */
+
+$white:    #ffffff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #373a3c !default;
+$gray-900: #212529 !default;
+$black:    #000000 !default;
+
+$blue:    #2780e3 !default;
+$indigo:  #6610f2 !default;
+$purple:  #170C3A !default;
+$pink:    #A52C60 !default;
+$red:     #CF4446 !default;
+$orange:  #EE6A24 !default;
+$light-orange:  #FB9E07 !default;
+$yellow:  #F6D645 !default;
+$green:   #118230 !default;
+$teal:    #068194 !default;
+$dartmouth-green: #00693E !default;   // Pantone 349, Dartmouth brand colour
+$cyan:    #3093CF !default;
+
+// River Blue, from Dartmouth's own tertiary palette -- on-brand, and reads
+// unmistakably as a link without competing with the green navbar and footer.
+// Dartmouth green itself reads badly here: too close to the bars to register
+// as clickable. Teal (the template default) fought the green outright.
+// Contrast on white: 4.59:1 -- just over the 4.5 AA floor, so do not lighten.
+$river-blue: #267ABA !default;
+$river-navy: #003C73 !default;
+$primary:   $river-blue !default;
+$secondary: $gray-700 !default;
+$success:   $green !default;
+$info:      $cyan !default;
+$warning:   $orange !default;
+$danger:    $red !default;
+$light:     $gray-400 !default;
+$dark:      $black !default;
+
+// Fonts
+// The template ships no font variables at all — it inherits Bootswatch pulse's
+// system-ui stack, which is why the original note on it was "wants typeface
+// changes". These three lines are the whole change; the faces themselves are
+// linked from Google Fonts in header.html.
+$font-family-sans-serif: "Red Hat Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !default;
+$headings-font-family:   "Petrona", Georgia, serif !default;
+$headings-font-weight:   400 !default;
+
+// Links
+$link-color: $primary !default;
+$link-decoration: none !default;
+// Was $red, a jarring pairing with green. Darkens to River Navy: same hue,
+// 11.09:1, the conventional direction from a lighter base.
+$link-hover-color: $river-navy !default;
+$link-hover-decoration: underline !default;
+
+// Footer
+// NOTE: his template sets $footer-bg: $gray-900, but that variable is a no-op
+// in Quarto — on his live demo the footer has no background rule at all, only
+// pale grey text on white. $footer-fg *is* honoured. So the green band below
+// is painted with an explicit rule in scss:rules, not by this variable.
+$footer-bg: $dartmouth-green !default;
+$footer-fg: #ffffff !default;
+
+// Inline code
+$code-bg: $gray-200 !default;
+$code-color: $gray-900 !default;
+
+// TOC
+$toc-color: $orange;
+$toc-font-size: 1em;
+
+// Code copy
+$btn-code-copy-color-active: $orange !default;
+
+
+/*-- scss:rules --*/
+
+// Dartmouth green footer band. Painted on the outer <footer> element so the
+// colour runs the full width of the viewport rather than stopping at the
+// content column.
+footer.footer {
+    background-color: $dartmouth-green;
+    color: #ffffff;
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
+}
+
+.nav-footer {
+    color: #ffffff;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    border: 0 !important;
+    min-height: 3em;
+
+    // CHANGED from his `color: $primary` (teal). Teal on Dartmouth green fails
+    // contrast badly; white keeps the footer legible.
+    a {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+    a:hover { color: $gray-300; }
+
+    .faux-block { display: block; padding-bottom: 0.4em; }
+
+    .nav-footer-center {
+        text-align: center;
+        position: inherit;
+        margin-top: 0;
+        @media (max-width: map-get($grid-breakpoints, md)) {
+            margin-top: 0.5em;
+            margin-bottom: 1.5em;
+        }
+    }
+
+    .nav-footer-left,
+    .nav-footer-right,
+    .nav-footer-center {
+        text-align: center;
+        width: 100%;
+        min-height: 2em;
+    }
+
+    @media (min-width: map-get($grid-breakpoints, md)) {
+        .nav-footer-left  { text-align: left; }
+        .nav-footer-right { text-align: right; }
+        .nav-footer-left,
+        .nav-footer-right,
+        .nav-footer-center { flex: 1 1 33%; }
+    }
+}
+
+// --- Steve's content classes ------------------------------------------------
+// Not part of his template. Minimal styling only, so the paper list reads the
+// same way it does in ../site/ and the comparison stays about the shell.
+.paper { margin: 0.5rem 0 0 0; }    // Quarto default 1.1rem
+.paper-title { font-weight: 600; line-height: 1.35; color: $gray-700; }
+.paper-authors, .paper-venue, .paper-status { font-size: 0.9rem; color: $gray-600; line-height: 1.45; }
+// NOTE: no font-style here. The whole line used to be italicised, from when
+// `status` was one composite string. Now only the journal is emphasised, via
+// the *…* markdown the template wraps around journal_name.
+.course, .resource { margin: 0.5rem 0 0 0; }    // matches .paper
+.course-title { font-weight: 600; color: $gray-700; }
+.course-meta { font-size: 0.9rem; color: $gray-600; line-height: 1.45; }
+
+
+// --- Footer icon row (ported from the hero build) --------------------------
+// Specificity note: Quarto ships `.nav-footer .nav-footer-center{font-size:.825em}`
+// (0,2,0). A bare `.nav-footer-center` loses to it, so this selector has to
+// match that specificity for the icons to scale.
+.nav-footer .nav-footer-center {
+  font-size: 1.2em;
+}
+
+.nav-footer .footer-icon {
+  padding: 0 0.25em;
+  text-decoration: none;
+}
+
+.nav-footer .footer-icon:hover {
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+
+// --- Section rules on h2 ---------------------------------------------------
+// Quarto's default is `border-bottom: 1px solid rgba(0,0,0,.05)` — 5% black,
+// which is present but effectively invisible. Darkened so the Research page's
+// three sections read as sections. Single declaration on Quarto's own
+// selector, placed later in the cascade; no !important needed.
+h2, .h2 {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+
+// --- Collapsible abstract --------------------------------------------------
+// Native <details>/<summary>: no JavaScript, keyboard accessible, and the
+// open/closed state is handled by the browser. <summary> is styled to read as
+// a small pill button rather than the default OS disclosure triangle.
+.paper-abstract {
+  margin-top: 0.4rem;
+}
+
+.paper-abstract > summary,
+.paper-cite > summary,
+a.paper-btn {
+  display: inline-block;      // removes the default triangle marker
+  cursor: pointer;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  padding: 0.05em 0.7em;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+  color: $gray-600;
+  user-select: none;
+  list-style: none;           // Firefox
+}
+
+.paper-abstract > summary::-webkit-details-marker,
+.paper-cite > summary::-webkit-details-marker { display: none; }  // Safari/Chrome
+
+.paper-abstract > summary:hover,
+.paper-cite > summary:hover,
+a.paper-btn:hover {
+  color: #fff;
+  background-color: $gray-600;
+  border-color: $gray-600;
+}
+
+// Label flips when open, so the control says what it will do.
+.paper-abstract[open] > summary,
+.paper-cite[open] > summary { visibility: hidden; position: relative; }
+.paper-abstract[open] > summary::after { content: "Hide abstract"; }
+.paper-cite[open] > summary::after { content: "Hide citation"; }
+// Teaching page: same pill, different noun.
+.course .paper-abstract[open] > summary::after,
+.resource .paper-abstract[open] > summary::after { content: "Hide description"; }
+.paper-abstract[open] > summary::after,
+.paper-cite[open] > summary::after {
+  visibility: visible;
+  position: absolute;
+  left: 0; top: 0;
+  padding: 0.05em 0.7em;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.paper-abstract .abstract-body {
+  margin-top: 0.5rem;
+  padding-left: 0.9rem;
+  border-left: 2px solid rgba(0, 0, 0, 0.12);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: $gray-700;
+  max-width: 46rem;
+}
+
+
+// --- Cite block ------------------------------------------------------------
+// Sits beside the Abstract toggle; both are pills of the same size.
+// The link pills live in their own <div> so Pandoc cannot wrap them in a <p>
+// (a bare inline element on its own line becomes a paragraph, and that <p>
+// carried Bootstrap's margins — which is what pushed the pills out of line).
+// display:contents dissolves the wrapper so the anchors join the parent row.
+.paper-links { display: contents; }
+.paper-toggles > p { margin: 0; display: contents; }
+
+.paper-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: flex-start;
+  margin-top: 0.4rem;
+}
+
+// <details> must be a flex container, not a plain block.
+//
+// As a block, its child <summary> is display:inline-block and therefore sits in
+// a line box whose height comes from <details> inheriting the body font
+// (1rem / 1.5 = ~26px) rather than the pill's own (~24px). The pill
+// baseline-aligns inside that taller line box and lands a couple of pixels low,
+// while the <a> pills — direct flex items, so blockified with no line box —
+// sit flush at the top. Making <details> a flex container blockifies <summary>
+// and removes the line box entirely.
+.paper-abstract, .paper-cite {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+// Open panels take the full row rather than sitting beside their sibling.
+.paper-abstract[open], .paper-cite[open] { flex: 1 0 100%; }
+
+.paper-cite .cite-body {
+  position: relative;
+  margin-top: 0.5rem;
+  max-width: 46rem;
+}
+
+.paper-cite pre.bibtex {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  background: $gray-100;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  overflow-x: auto;          // long DOI lines scroll rather than break layout
+}
+
+.paper-cite pre.bibtex code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: $gray-800;
+}
+
+.paper-cite .copy-btn {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  font-size: 0.68rem;
+  padding: 0.1em 0.6em;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+  background: #fff;
+  color: $gray-600;
+  cursor: pointer;
+}
+
+.paper-cite .copy-btn:hover { color: #fff; background: $gray-600; border-color: $gray-600; }
+.paper-cite .copy-btn.copied { color: #fff; background: $primary; border-color: $primary; }
+
+// Link pills sit in the same row as the Abstract/Cite toggles and share their
+// shape; these two lines just undo link defaults.
+a.paper-btn { text-decoration: none; }
+a.paper-btn:hover { text-decoration: none; }
+
+
+// --- Heading links ---------------------------------------------------------
+// A heading that doubles as a link should look identical whether or not it
+// actually is one, so a list does not read as two classes of item. The anchor
+// inherits its parent's colour and weight at rest; link behaviour shows up on
+// hover instead of being carried by colour.
+//
+// Rationale from the measurements: the template's link colour (#068194) sits
+// at 4.59:1 on white, essentially the same as the metadata grey beneath it
+// (4.68:1) — so linked titles were reading as no more important than the
+// small print under them. $gray-700 is 8.18:1.
+//
+// Links identify themselves on HOVER, not at rest: a body link sits in the
+// surrounding text colour with no underline, and takes the link colour plus an
+// underline on hover or keyboard focus.
+//
+// EXCLUDES .paper-btn -- the pills are bordered controls that already read as
+// clickable, and stripping their colour would make them look disabled.
+// EXCLUDES .about-link -- the home-page icon bar. Quarto already styles those
+// light grey with a blue hover (`div.quarto-about-jolla .about-link`, 0,2,1);
+// this rule at 0,2,2 was outranking it and turning them body-text dark.
+// Scoped to main.content so the navbar and the white-on-green footer links are
+// untouched.
+//
+// font-weight: inherit is REQUIRED, not decorative: the Pulse theme sets
+// `a{font-weight:400}`, so without it an anchor inside a bold container (a
+// paper title at 600) silently renders at 400.
+//
+// :focus-visible is not optional either. With no resting affordance, a
+// keyboard user would have no way to see where they are on the page.
+main.content a:not(.paper-btn):not(.about-link) {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+}
+
+main.content a:not(.paper-btn):not(.about-link):hover,
+main.content a:not(.paper-btn):not(.about-link):focus-visible {
+  color: $link-color;
+  text-decoration: underline;
+}
+
+
+// --- Page headings ---------------------------------------------------------
+// Centre the page title on every page that has one (Research, Teaching,
+// Resources, CV, Office). The home page declares no `title:` in its front
+// matter, so its title block is empty and this has no effect there.
+#title-block-header {
+  text-align: center;
+}
+
+// Space between the end of one section and the next section's heading.
+// Bootstrap's default is margin-top: 2rem; halved. margin-bottom is trimmed a
+// little too, since the heading sat further from its own first paper than the
+// paper spacing warranted.
+h2, .h2 {
+  margin-top: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+
+// =============================================================================
+// STACKED BUILD ONLY
+//
+// NOTE there is deliberately no scroll-padding-top or scroll-behavior here.
+// Both were removed once the navbar stopped using in-page anchors (see the
+// note on the navbar in _quarto.yml). If any anchor link is ever added back,
+// scroll-padding-top must come back with it or the target lands under the
+// fixed navbar -- 135px was the measured correct value.
+// =============================================================================
+
+// Section separation. With five sections in one document the h2 rhythm that
+// worked per-page is too tight to read as a boundary, so section headings get
+// real space above them.
+//
+// SPACE ONLY -- deliberately no border here. Quarto's own stylesheet already
+// underlines every h2:
+//     h2, .h2 { border-bottom: 1px solid rgba(0,0,0,.05); padding-bottom: .5rem }
+// An earlier version of this rule added a border-top as well, which sandwiched
+// each section heading between two hairlines. The underline is the separator;
+// this rule only supplies the whitespace in front of it.
+.stack-main > section > h2,
+.stack-main > h2 {
+  margin-top: 3.25rem;
+}
+
+// The first section ("Research" on the home page) follows the intro prose
+// directly and needs less of a gap than sections that follow a whole section.
+.stack-main > section:first-of-type > h2,
+.stack-main > h2:first-of-type {
+  margin-top: 2rem;
+}
+
+// ...but on Teaching, Resources, CV and Contact the section IS the first thing
+// in the column, with no prose above it, and that 2rem just drops the heading
+// below the top of the profile photo beside it. Flush instead, so the heading
+// and the top of the photo start on the same line.
+//
+// :first-child, not :first-of-type -- that is exactly the distinction. On the
+// home page the first child is the intro <p>, so its section keeps the 2rem;
+// on the other four the section is the first child and gets 0.
+.stack-main > section:first-child > h2,
+.stack-main > h2:first-child {
+  margin-top: 0;
+}
+
+
+// -----------------------------------------------------------------------------
+// STICKY PROFILE SIDEBAR
+//
+// Borrowed structurally (not visually) from luost26/academic-homepage: identity
+// on the left, content on the right, left column pinned while the right one
+// scrolls. The point is the thin-content problem -- a two-line Resources
+// section never reads as an empty page while the portrait is still on screen.
+//
+// Deliberately NOT borrowed: the cards, drop shadows, borders and tinted page
+// background of that template. Typography and colour here are unchanged.
+// -----------------------------------------------------------------------------
+
+// `page-layout: full` removes Quarto's reading-width cap, which is what lets
+// the sidebar sit outside the text column. Put a ceiling back on so the prose
+// does not run the full width of a large monitor.
+.stack-grid {
+  // Sidebar is a third of the grid (g-col-md-4), so the cap is a touch wider
+  // than before to keep the content column at a comfortable measure.
+  max-width: 1240px;
+  margin-inline: auto;
+  column-gap: 2.5rem;
+}
+
+.profile-sidebar {
+  // `align-self` stops the grid stretching the column to full height, which
+  // would make `sticky` have nothing to travel in.
+  //
+  // top is MEASURED, not derived. Sticky scrolls an element normally until its
+  // top edge reaches this threshold and only then pins, so any mismatch shows
+  // as drift before it sticks. In the browser:
+  //     window.scrollTo(0,0);
+  //     document.querySelector('.profile-sidebar').getBoundingClientRect().top
+  //   -> 135.1666717529297
+  //
+  // Contributions: body.nav-fixed{padding-top:89px} + #quarto-content>*
+  // {padding-top:14px} + ~32px from #title-block-header{margin-block-end:1rem}
+  // and grid metrics -- the empty title header still takes vertical space.
+  // (That 14px looks cancelled by a later `#quarto-content>*{padding-top:0}`,
+  // but that override is inside @media(max-width: 991.98px), where this
+  // sidebar is `position: static` anyway.)
+  //
+  // IF IT DRIFTS AGAIN, re-measure with the snippet above rather than adjusting
+  // by eye. Do NOT raise it to add breathing room: sticky also pushes an
+  // element DOWN when `top` exceeds its natural offset.
+  position: sticky;
+  top: 135.17px;
+  align-self: start;
+  text-align: center;
+}
+
+.profile-photo img,
+img.profile-photo {
+  width: 100%;
+  max-width: 230px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1.25rem;
+}
+
+// The div wraps its text in a <p>, and Bootstrap's `p { margin-bottom: 1rem }`
+// collapses THROUGH the div (no padding, no border), so the gap below the name
+// was max(1rem, whatever is set here) -- i.e. pinned at 1rem and deaf to any
+// smaller value. Zeroing this one paragraph hands the gap to the div margin.
+//
+// SCOPED TO .profile-name ONLY, deliberately. The affiliation and icon
+// paragraphs keep Bootstrap's margins, so the affiliation-to-icons gap is
+// exactly what it was before this change.
+.profile-name p {
+  margin-bottom: 0;
+}
+
+.profile-name {
+  font-family: $headings-font-family;
+  font-size: 1.6rem;
+  // 600 to match the section headings: Quarto forces h1/h2 to 600 after
+  // $headings-font-weight (400) resolves, so every `##` on the site renders
+  // semibold and the name would otherwise be the one heading that did not.
+  font-weight: 600;
+  line-height: 1.2;
+  // GAP: name -> affiliation. Live only because of the rule above.
+  margin-bottom: 0.3rem;
+}
+
+.profile-affil {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: $gray-600;
+  margin-bottom: 1rem;
+}
+
+.profile-icons {
+  // 1.36em = 1.6em - 15%.
+  font-size: 1.36em;
+
+  a {
+    padding: 0 0.26em;
+    color: $gray-600;
+    text-decoration: none;
+  }
+
+  // Matches the site-wide hover-to-reveal link behaviour rather than
+  // introducing a second interaction idiom.
+  a:hover,
+  a:focus-visible {
+    color: $link-color;
+    text-decoration: none;
+  }
+}
+
+// Below the md breakpoint the grid stacks the sidebar above the content, where
+// `sticky` would pin the portrait over the text as you scroll. Unpin it and let
+// it behave as an ordinary header block.
+@media (max-width: 767.98px) {
+  .profile-sidebar {
+    position: static;
+    margin-bottom: 1.5rem;
+  }
+
+  .profile-photo img,
+  img.profile-photo {
+    max-width: 170px;
+  }
+}
+
+
+// --- Heading spacing on prose sub-pages -------------------------------------
+// The site-wide rule above halves Quarto's heading spacing:
+//     h2, .h2 { margin-top: 1rem; margin-bottom: 0.6rem }
+// which is right for the listing pages, where `## Working Papers` is a label
+// sitting directly on top of its listing. It is much too tight on the long
+// prose pages under resources/, where each h2 opens a real section of text,
+// diagrams and code -- and where the h2 also carries a visible bottom border.
+//
+// Scoped by a structural tell rather than a new class: a prose page renders a
+// POPULATED title block (`header.quarto-title-block.default`), whereas the
+// stacked listing pages emit an empty `quarto-title-block` with no `.default`.
+// So `.default ~ section` matches sections on prose pages and nothing else --
+// no front matter to remember on the next page anyone adds.
+#title-block-header.quarto-title-block.default ~ section > h2 {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+#title-block-header.quarto-title-block.default ~ section > h2:first-child,
+#title-block-header.quarto-title-block.default ~ section:first-of-type > h2 {
+  margin-top: 1.5rem;     // the first section follows the title, not a section
+}
+
+#title-block-header.quarto-title-block.default ~ section section > h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.65rem;
+}
+
+// Air around the block elements those pages are mostly made of.
+#title-block-header.quarto-title-block.default ~ section pre {
+  margin-top: 1.1rem;
+  margin-bottom: 1.1rem;
+}
+
+
+// --- Gap above a sibling subsection (Publications under Working Papers) ------
+// Measured in the browser: the gap from the last paper to the "Publications"
+// heading was 44px, made of the h3's own top margin (26.4px) plus ~17.6px
+// contributed above it. Too much: the papers within a section sit 8.8px apart,
+// so 44px read as a much bigger break than intended.
+//
+// The 26.4px comes from a Quarto rule that is easy to miss when grepping,
+// because it groups h3 with h4:
+//     h3, .h3, h4, .h4 { opacity: .9; margin-top: 1.5rem }
+// NOTE 1.5rem is 26.4px here, not 24px -- `fontsize: 1.1em` in _quarto.yml
+// makes the root 17.6px, so every rem in this project is 10% larger than the
+// usual assumption.
+//
+// Trimming the heading's share takes the gap to roughly 26px. Scoped to a
+// level3 section FOLLOWING another one, so "Working Papers" keeps its spacing
+// under the "Research" h2.
+.stack-main section.level3 + section.level3 > h3 {
+  margin-top: 0.5rem;
+}

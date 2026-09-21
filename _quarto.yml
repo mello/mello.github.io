@@ -1,0 +1,124 @@
+# ---------------------------------------------------------------------------
+# Steve Mello — Marvin Schmitt template variant.
+#
+# Structure, theme and settings follow
+# https://github.com/marvinschmitt/quarto-website-template (read from source,
+# August 2026). Paper/course content and the listing templates are identical
+# to ../site/, so a side-by-side comparison isolates the *shell*: typography,
+# home layout, navbar, footer, colour.
+#
+# Deliberately NOT copied: the template's two "View the tutorial for this
+# template" call-to-action buttons, which are promo for the template itself.
+# ---------------------------------------------------------------------------
+project:
+  type: website
+  output-dir: _site
+
+  # Files here are copied into _site even though no page links to them.
+  # Quarto only publishes resources a page REFERENCES, so anything kept purely
+  # to stop an old URL from 404ing has to be listed explicitly or it silently
+  # never ships.
+  #
+  # fines_supplementary.pdf: the online appendix from the old site. It is cited
+  # somewhere on the internet, so https://mello.github.io/files/fines_supplementary.pdf
+  # has to keep resolving. The rest of the old site's files/ were allowed to lapse.
+  resources:
+    - "files/fines_supplementary.pdf"
+
+website:
+  title: "Steve Mello"
+  description: "Assistant Professor of Economics, Dartmouth College"
+
+  # Dartmouth's own favicon, taken from https://www.dartmouth.edu/favicon.ico
+  # (multi-size .ico: 16, 32, 48px). The College "D" with the Lone Pine.
+  # Steve is Dartmouth faculty and this is his faculty page -- affiliated use,
+  # decided September 2026.
+  favicon: images/favicon.ico
+
+  navbar:
+    pinned: true              # COPY: his navbar sticks on scroll
+    background: "#00693E"     # Dartmouth green (Pantone 349)
+    foreground: "#ffffff"
+    # Links sit on the RIGHT at desktop width. In the collapsed mobile menu
+    # Bootstrap stacks them regardless, so this only affects the wide layout.
+    #
+    # Every entry is a page; no in-page anchors. "Research" was #research for
+    # a while, so that it jumped past the bio to the papers, but clicking it
+    # while already on index behaved badly: once the URL carries #research, a
+    # second click changes nothing and the browser does not re-scroll, so the
+    # link reads as dead or half-working. index.qmd is predictable instead --
+    # from another page you land at the top of the home page, and from the
+    # home page it is simply a no-op.
+    #
+    # Note Quarto rewrites hrefs configured here per page ("./teaching.html"
+    # at the top level, "../teaching.html" one level down). That rewriting
+    # does NOT apply to raw <a href="..."> written inside page bodies, which
+    # is why the shared sidebar partial links to cv.qmd / contact.qmd.
+    #
+    # `pinned: true` means the navbar covers whatever it scrolls to, so
+    # html/styles.scss sets scroll-padding-top to push the target clear.
+    right:
+      - text: "Research"
+        href: index.qmd
+      - text: "Teaching"
+        href: teaching.qmd
+      - text: "Resources"
+        href: resources.qmd
+      - text: "CV"
+        href: cv.qmd
+
+  # REMOVED at Steve's request: the template's navbar-right social icon links
+  # and its navbar search box.
+  search: false
+
+  page-footer:
+    # Ported from the hero build: two-line credit on the left, icon row centred,
+    # right side empty. The template pointer credits Marvin Schmitt's Quarto
+    # template, which is what THIS build is based on (the hero build credits
+    # Hugo Apéro instead).
+    #
+    # Note: his repo carries no licence file, so this is courtesy attribution
+    # rather than a licence requirement — unlike the Apéro credit, where CC BY
+    # actually mandates it.
+    left: |
+      <span class="faux-block">&#169; 2026 Steve Mello</span>
+      <span class="faux-block">Built with [Quarto](https://quarto.org) &nbsp;&middot;&nbsp; Based on [Marvin Schmitt's template](https://github.com/marvinschmitt/quarto-website-template)</span>
+    center: |
+      <a class="footer-icon" href="mailto:steve.mello@dartmouth.edu" title="Email">{{< fa envelope label="Email" >}}</a>
+      <a class="footer-icon" href="/cv.html" title="Curriculum vitae">{{< fa file-lines label="Curriculum vitae" >}}</a>
+      <a class="footer-icon" href="/contact.html" title="Contact">{{< fa location-dot label="Contact" >}}</a>
+      <a class="footer-icon" href="https://scholar.google.com/citations?user=exewuS4AAAAJ" title="Google Scholar">{{< ai google-scholar label="Google Scholar" >}}</a>
+      <a class="footer-icon" href="https://github.com/mello" title="GitHub">{{< fa brands github label="GitHub" >}}</a>
+
+format:
+  html:
+    fontsize: 1.1em           # COPY: his body text runs larger than Bootstrap default
+    include-in-header: header.html
+    include-after-body: scripts.html
+    theme:
+      - pulse                 # COPY: Bootswatch pulse, as in his _quarto.yml
+      - html/styles.scss
+    toc: false
+    # Every link to another site opens in a new tab.
+    #
+    # Quarto applies this CLIENT-SIDE, in inline JS on each page -- no `target`
+    # attribute is present in the rendered HTML, so grepping the output for
+    # `target=` wrongly suggests the option does nothing. It does work; view a
+    # served page's live DOM, not its source, to confirm.
+    #
+    # "External" means: not this site's host, not localhost, not mailto:. So it
+    # covers prose links (a coauthor's page, a journal) but deliberately does
+    # NOT cover our own files/*.pdf. The templates therefore keep their own
+    # explicit target=_blank on link pills, which is what opens self-hosted
+    # PDFs in a new tab -- that is not redundant with this setting.
+    #
+    # `link-external-icon` is a separate option and stays off; it would append
+    # an arrow glyph to every external link.
+    link-external-newwindow: true
+    # Native Quarto lightbox (no extension). Opt-in per image via the
+    # .lightbox class; `auto` would apply it to every image on the site.
+    lightbox: true
+    anchor-sections: false    # off: the hover link icon made section headings read as links
+    footnotes-hover: true
+    # COPY: he sets no body-width, so text runs at Bootstrap's full responsive
+    # width — noticeably wider than the 700px column in ../site/.

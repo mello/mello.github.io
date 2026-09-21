@@ -1,0 +1,129 @@
+---
+title: "Project management guide"
+weight: 1
+description: |
+  Project management guidance for students and research assistants.
+page-layout: article
+---
+
+<!-- Fields this file can carry (each is optional except title; a field left
+     out simply produces no element on the Resources page):
+
+       title        the linked heading on the Resources page
+       weight       ordering on the Resources page (lower = higher up)
+       description  text inside the "Description" pill
+       repo         full URL to a GitHub repo -> "GitHub" pill
+       download     "guide.pdf" (a file in files/) or a full URL -> "Download" pill
+
+     Do NOT add a field named `project`, `website`, or `format` -- those are
+     top-level keys in _quarto.yml and Quarto overwrites them on every listing
+     item. See the note in _resource.ejs. -->
+
+## Project folder organization
+
+<!-- Every project I work on uses the same folder structure, which sounds like a
+trivial thing to care about until you come back to a paper two years later and
+need to find the code that produced Figure 3. The organizing principle is that
+raw data are never modified and everything else in the project can be rebuilt
+by running code, so the only files that genuinely need to be preserved are the
+raw data and the scripts themselves. Cleaned datasets, figures, tables, and the
+compiled paper are all disposable output. Because that separation is what makes
+a project reproducible, it is worth setting up before you write any code rather
+than imposing it afterwards. -->
+
+Research project folders should generally be organized as follows:
+
+```
+project/
+├── docs/
+│   ├── README.md          # what the project is, and how to run it
+│   └── data_sources.md    # sources of raw data
+├── data/
+│   ├── raw/               # as downloaded or received; never edited
+│   └── final/             # derived data 
+├── code/                  # scripts 
+├── output/                # location of research outputs
+└── draft/                 # paper draft and/or slides                  
+```
+
+
+
+In terms of project management, the two most important rules are: 
+
+- The `data/raw` directory includes all raw data files and nothing else. Every raw data file must live in this folder, and nothing else is allowed to live in this folder. 
+- All scripts must live in the `code` directory and should never be stored anywhere else. 
+
+Another important convention is to name and organize scripts to clarify the order in which they must be executed. The code directory in my projects often ends up looking something like this: 
+
+```
+project/
+├── code/
+│   ├── _utility/              # helper scripts used by others 
+│   ├── 01-build_data/         # data construction scripts
+│   │   ├── 01-clean_ucr.do
+│   │   └── 02-match_agencies.R
+│   └── 02-main_analysis/      # data analysis scripts 
+│       ├── 01-summary_stats.do 
+│       ├── 02-descriptive_regs.do
+│       └── 03-iv_analysis.do
+```
+The directory numbering tells us that the code in `01-build_data`, which constructs analysis datasets from raw datasets, must be run before the code in `02-main_analysis`. Within each directory, the scripts themselves are numbered in the order in which they need to be exectuted. Note that sometimes the chunk ordering may be arbitrary---for example, we may have `03-robustness_tests` which does not need to be run after `02-main_analysis`. 
+
+The exact organization of the `data` directory may vary somewhat across projects. I generally group raw data files into subdirectories by source, and sometimes also have `_temp` and `intermediate` directories in the data directory:
+
+```
+project/
+├── data/
+│   ├── _temp/        # temporary data staging
+│   ├── raw/
+│   │   ├── fbi_ucr/  # raw data from source 1
+│   │   │   ├── ucr_offenses_1960_2024.dta
+│   │   │   └── ucr_arrests_1974_2024.dta
+│   │   └── acs/      # raw data from source 2
+│   │       └── acs_tract_2019.csv
+│   ├── intermediate/ # intermediate data staging
+│   └── final/        # final analysis datasets
+│       ├── tract_panel.dta
+│       └── analysis_sample.dta
+```
+
+
+## Raw data documentation
+
+The document `docs/data_sources.md` (or `.qmd` if you prefer) tracks the source of a project's raw data files. A good habit to get into is updating this file every time a new piece of data lands in `data/raw`. You can always remove the entry later if the data source never ends up included in the final project, whereas it may be difficult to remember the exact data and source of a file later. Here is a template for this file: 
+
+````markdown
+# Data Sources: Project Name
+
+Last updated: YYYY-MM-DD
+
+## Short description of data source 1
+
+- **Location**: `path to raw data files`
+- **Description:** More detailed description of the dataset(s).
+- **URL or access point:** [Link to website](paste url here)
+- **Date accessed:** YYYY-MM-DD
+- **License:** Public use (or restrictions if applicable)
+- **Citation:** Insert full citation here. Some sources (e.g., ICPSR) provide a suggested citation that you can just copy and paste. Otherwise ask AI to generate a citation or leave blank.
+- **Notes:** Insert other notes such as data quality concerns, quirks, or file naming conventions here.
+
+## Short description of data source 2
+
+- **Location**: `path to raw data files`
+- **Description:** More detailed description of the dataset(s).
+- **URL or access point:** [Link to website](paste url here)
+- **Date accessed:** YYYY-MM-DD
+- **License:** Public use (or restrictions if applicable)
+- **Citation:** Insert full citation here. Some sources (e.g., ICPSR) provide a suggested citation that you can just copy and paste. Otherwise ask AI to generate a citation or leave blank.
+- **Notes:** Insert other notes such as data quality concerns, quirks, or file naming conventions here.
+
+## Concrete example: FBI crime data
+
+- **Location**: `data/raw/fbi_ucr/`
+- **Description:** Jacob Kaplan's cleaned version of the FBI UCR data from 1960-2024.
+- **URL or access point:** [OpenICPSR link](https://www.openicpsr.org/openicpsr/project/100707/version/V22/view)
+- **Date accessed:** 2026-01-31
+- **License:** Public use
+- **Citation:** Kaplan, Jacob. Jacob Kaplan's Concatenated Files: Uniform Crime Reporting Program Data: Offenses Known and Clearances by Arrest (Return A), 1960-2024. Ann Arbor, MI: Inter-university Consortium for Political and Social Research [distributor], 2025-08-21. https://doi.org/10.3886/E100707V22
+- **Notes:** Downloaded directly as `.dta` file.
+````

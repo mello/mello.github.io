@@ -1,0 +1,42 @@
+---
+# =============================================================================
+# HOME. Carries the intro prose and the Research section; Teaching, Resources,
+# CV and Contact are their own pages.
+#
+# Every top-level page has the same shape: a .stack-grid wrapper holding the
+# shared sidebar partial and a .stack-main content column. Sections that live
+# on this page come in via {{< include >}}; their listing definitions have to
+# sit in THIS front matter, because `include` merges body content only.
+#     working, publications  ->  _research.qmd
+# =============================================================================
+pagetitle: "Steve Mello"
+page-layout: full
+
+listing:
+  - id: working
+    contents: papers/working
+    template: _paper.ejs
+    sort: "weight"
+    filter-ui: false
+    sort-ui: false
+  - id: publications
+    contents: papers/publications
+    template: _paper.ejs
+    sort: "weight"
+    filter-ui: false
+    sort-ui: false
+---
+
+::: {.grid .stack-grid}
+
+{{< include _profile-sidebar.qmd >}}
+
+::: {.g-col-12 .g-col-md-8 .stack-main}
+
+I am an assistant professor of economics at Dartmouth College. My research interests are in public and labor economics, with a focus on inequality and the criminal justice system. You can view my CV [here](cv.qmd) and can contact me at [steve.mello@dartmouth.edu](mailto:steve.mello@dartmouth.edu).
+
+{{< include _research.qmd >}}
+
+:::
+
+:::

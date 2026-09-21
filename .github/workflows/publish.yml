@@ -1,0 +1,37 @@
+# Renders the site on GitHub and publishes it to the gh-pages branch.
+#
+# The loop this creates: edit a .qmd on main, commit, push. This runs, and a
+# minute or so later the change is live. Nothing is rendered on your machine
+# and _site/ is never committed.
+#
+# If a render fails, this job fails and the PREVIOUS site stays up -- a broken
+# push cannot take the site down.
+#
+# No R, Python or data is needed here: nothing in the project executes code.
+# The campus map is a committed PNG produced separately by tools/office_map.R.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+
+name: Quarto Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render and Publish
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,17 @@
+<!-- Copy-to-clipboard for the BibTeX blocks. The only JavaScript on the site.
+     Event delegation, so it works for every .copy-btn without per-element
+     wiring, and it does nothing at all if no Cite block is present. -->
+<script>
+document.addEventListener('click', function (e) {
+  var btn = e.target.closest('.copy-btn');
+  if (!btn) return;
+  var code = btn.parentElement.querySelector('code');
+  if (!code) return;
+  navigator.clipboard.writeText(code.innerText).then(function () {
+    var original = btn.textContent;
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(function () { btn.textContent = original; btn.classList.remove('copied'); }, 1600);
+  });
+});
+</script>

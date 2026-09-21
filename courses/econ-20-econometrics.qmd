@@ -1,0 +1,15 @@
+---
+title: "Economics 20: Econometrics"
+weight: 1
+term: ""
+description: |
+  This course covers the statistical techniques that economists use for estimating, testing, and forecasting economic relationships, with a particular focus on causal inference tools. The course emphasizes an understanding of the techniques involved as well as an understanding what these techniques mean in terms of the underlying economic issues. Successful completion of this course should allow you to (1) read much of the professional empirical literature in economics and (2) be prepared to start doing independent research using economic data in a 60-level course.  
+syllabus: "syllabus_econ20.pdf"
+page-layout: article
+---
+
+<!-- See courses/econ-28-public-finance.qmd for the list of available fields. -->
+
+## Overview
+
+PLACEHOLDER. This sub-page is not linked from the Teaching page yet.

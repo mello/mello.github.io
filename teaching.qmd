@@ -1,0 +1,35 @@
+---
+pagetitle: "Teaching"
+page-layout: full
+
+listing:
+  - id: courses
+    contents: courses
+    template: _course.ejs
+    sort: "weight"
+    filter-ui: false
+    sort-ui: false
+---
+
+::: {.grid .stack-grid}
+
+{{< include _profile-sidebar.qmd >}}
+
+::: {.g-col-12 .g-col-md-8 .stack-main}
+
+<!-- Own page again (was a partial while everything was stacked). Its
+     listing definition is back in this file's own front matter. -->
+
+## Teaching {#teaching}
+
+At Dartmouth, I teach undergraduate courses in econometrics and public economics. 
+
+::: {#courses}
+:::
+
+<!-- Course entries live in courses/*.qmd, one file per course, ordered by
+     `weight`. See courses/econ-28-public-finance.qmd for the available fields.
+     Descriptions there are DRAFTS and still need Steve's own text. -->
+:::
+
+:::

@@ -1,0 +1,32 @@
+<!-- SHARED SIDEBAR PARTIAL.
+
+     Included at the top of every top-level page, inside that page's
+     ::: {.grid .stack-grid} wrapper. One copy of the markup, so the identity
+     block stays identical across the site and only has to be edited here.
+
+     Links are page-relative (cv.qmd, contact.qmd), NOT bare #anchors: this
+     markup is emitted onto several pages, and a bare #cv would resolve
+     against whatever page it happens to be sitting on. Quarto rewrites the
+     .qmd targets to .html and fixes the relative depth per page. -->
+
+::: {.g-col-12 .g-col-md-4 .profile-sidebar}
+
+![](images/steve.jpg){.profile-photo fig-alt="Steve Mello"}
+
+::: {.profile-name}
+Steve Mello
+:::
+
+::: {.profile-affil}
+Assistant Professor of Economics<br>Dartmouth College
+:::
+
+::: {.profile-icons}
+<a href="mailto:steve.mello@dartmouth.edu" title="Email">{{< fa envelope label="Email" >}}</a>
+[{{< fa file-lines label="Curriculum vitae" >}}](cv.qmd "Curriculum vitae")
+[{{< fa location-dot label="Contact" >}}](contact.qmd "Contact")
+<a href="https://scholar.google.com/citations?user=exewuS4AAAAJ" title="Google Scholar">{{< ai google-scholar label="Google Scholar" >}}</a>
+<a href="https://github.com/mello" title="GitHub">{{< fa brands github label="GitHub" >}}</a>
+:::
+
+:::

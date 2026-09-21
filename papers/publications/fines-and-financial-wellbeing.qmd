@@ -1,0 +1,25 @@
+---
+title: "Fines and financial wellbeing"
+weight: 2
+authors: []
+venue: "*Review of Economic Studies*, 92(5), September 2025"
+pdf: ""
+publisher: "https://doi.org/10.1093/restud/rdae111"
+abstract: |
+  While survey evidence suggests widespread financial fragility in the U.S., causal evidence on the implications of typical, negative income shocks is scarce. I estimate the impact of speeding fines on household finances using administrative traffic citation records and a panel of credit reports. Event studies reveal that fines averaging $195 are associated with a $34 increase in unpaid bills in collections. Given additional evidence that fine payment explains this effect and that default is the “last resort” for households, I interpret this finding as suggesting rates of inability to meet unplanned expenses which are consistent with the survey evidence. I also find that fines are associated with longer-run declines in credit scores, borrowing limits, and the likelihood of appearing as employed in payroll records covering a subset of large, high-paying employers. This impact on employment situations appears attributable to the diminished financial position of households rather than, e.g. downstream license suspensions.
+bibtex: |
+  @article{mello_fines,
+    title   = {Fines and Financial Wellbeing},
+    author  = {Mello, Steven},
+    journal = {Review of Economic Studies},
+    volume  = {92},
+    number  = {5},
+    pages   = {3340--3374},
+    year    = {2025},
+    month   = sep,
+    doi     = {10.1093/restud/rdae111}
+  }
+prepub: "fines_prepublication.pdf"
+replication: "https://doi.org/10.5281/zenodo.13845033"
+nberwp: ""
+---

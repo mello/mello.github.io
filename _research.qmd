@@ -1,0 +1,55 @@
+<!-- PARTIAL. Included by index.qmd via {{< include >}}. Leading underscore
+     keeps Quarto from rendering it as a page of its own.
+
+     NOTE the listing definitions that used to live in this file's front
+     matter (ids `working` and `publications`) now sit in index.qmd's YAML.
+     `include` pulls in body content only -- it does not merge front matter --
+     so a listing container here is filled by a definition up there. If you
+     add a listing, the div goes in this file and the definition goes in
+     index.qmd. -->
+
+## Research {#research}
+
+### Working Papers
+
+::: {#working}
+:::
+
+### Publications
+
+::: {#publications}
+:::
+
+<!-- ===========================================================================
+     WORK IN PROGRESS section — removed 2026-09-04.
+
+     Removed because its only entry ("The big economic consequences of small
+     shocks") moved to Working Papers, matching the CV, which files it there.
+     An empty listing still renders its heading, so the section had to go
+     rather than just be emptied.
+
+     TO BRING IT BACK, three steps:
+
+     1. Recreate the folder and put at least one paper .qmd in it:
+            mkdir papers/wip
+
+     2. Add this listing back to the YAML block at the top of INDEX.QMD
+        (not this file -- see the note above):
+            - id: wip
+              contents: papers/wip
+              template: _paper.ejs
+              sort: "weight"
+              filter-ui: false
+              sort-ui: false
+
+     3. Add this heading and container back at the bottom of this file:
+            ### Work in Progress
+
+            ::: {#wip}
+            :::
+
+     Note: your CV lists two genuine in-progress papers not yet on the site —
+     "The criminal and labor market impacts of arrests" (Chyn, Gonçalves,
+     Jácome, Weisburst) and "The economic value of credit scores" (Gupta,
+     Zinman).
+     =========================================================================== -->

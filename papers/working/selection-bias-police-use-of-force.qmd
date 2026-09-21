@@ -1,0 +1,32 @@
+---
+title: "Selection bias and racial disparities in police use of force"
+weight: 1
+authors:
+  - name: "Felipe Gonçalves"
+    url: "https://www.fmgoncalves.com/"
+  - name: "Emily Weisburst"
+    url: "https://sites.google.com/site/emilyweisburst/home"
+status: "Revise and resubmit"
+statusType: "revision"
+pdf: "selection_force.pdf"
+nber: ""
+abstract: |
+  We study racial disparities in police use of force. A pervasive issue in studies of policing is that the available data are selected by the police. As a result, disparities computed in the observed sample may be biased if selection into the data differs by race. We develop a framework and econometric strategy for correcting this bias, using variation across officers in enforcement intensity to identify the racial composition of the unobserved population at risk of selection. Using detailed administrative data on arrests and force incidents from Chicago and Seattle, we find that Black civilians comprise 56 percent of arrestees but about 49 percent of potential arrestees. Correcting for sample selection doubles our measure of the racial disparity in force rates. Decompositions of the corrected force disparity reveal that about 70 percent is unexplained by other demographic and incident characteristics, suggesting an important role for officer discrimination. Our selection bias estimates meaningfully impact the conclusions drawn in the existing literature. 
+bibtex: |
+  @techreport{gmw_selection,
+    title       = {Selection Bias and Racial Disparities in Police Use of Force},
+    author      = {Gon{\c c}alves, Felipe and Mello, Steven and Weisburst, Emily},
+    institution = {National Bureau of Economic Research},
+    type        = {Working Paper},
+    series      = {NBER Working Paper Series},
+    number      = {34175},
+    year        = {2025},
+    month       = aug,
+    doi         = {10.3386/w34175},
+    url         = {https://www.nber.org/papers/w34175}
+  }
+prepub: ""
+replication: ""
+nberwp: "34175"
+journal_name: "Journal of Political Economy"
+---

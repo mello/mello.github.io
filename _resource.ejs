@@ -1,0 +1,53 @@
+<%
+// Resource listing. Same single-line-output rule as _paper.ejs and _course.ejs
+// (Quarto runs this through a Markdown pass, so indentation would be read as a
+// code block), and the same "field non-empty -> element appears" rule.
+//
+// Renders: title (always a link to the resource's own sub-page) and a
+// collapsible Description.
+//
+// DIFFERENCE FROM _course.ejs: resource titles ALWAYS link, to `item.path` --
+// Quarto sets `path` on every listing item to the rendered sub-page. Courses
+// have no sub-pages yet, so their titles are plain text. That is the only
+// reason these are two files.
+//
+// CLASS NAMES: the pills reuse the .paper-* classes from the Research page so
+// there is one pill implementation in the stylesheet. The course/resource
+// specific bit is the open-state label ("Hide description"), scoped in
+// styles.scss.
+for (const item of items) {
+  function resolveHref(v) {
+    const raw = String(v).trim();
+    return /^(https?:\/\/|mailto:|\/)/i.test(raw) ? raw : 'files/' + raw;
+  }
+
+  const hasDesc = item.description && String(item.description).trim().length > 0;
+
+  // Optional link pills, same mechanism as the Research and Teaching pages.
+  // Neither field is used yet; both are here so a resource that has a repo or
+  // a downloadable file gets a pill by adding one line to its .qmd.
+  //
+  // Do NOT name a field `project`, `website`, or `format` -- those are the
+  // top-level keys in _quarto.yml and Quarto merges site metadata into every
+  // listing item, so `item.project` would be the site config object rather
+  // than anything from this file. (This bit once: a `website` field rendered a
+  // phantom pill pointing at "files/[object Object]".)
+  const linkBtns = [
+    ['repo',     'GitHub'],
+    ['download', 'Download'],
+  ].filter(function (b) { return item[b[0]] && String(item[b[0]]).trim().length > 0; })
+   .map(function (b) { return { href: resolveHref(item[b[0]]), label: b[1] }; });
+
+  // MARKDOWN, not HTML: Quarto's EJS escapes interpolated values, so an anchor
+  // built here would arrive on the page as visible text. No new-tab attribute
+  // -- these are pages on this same site.
+  const title = `[${item.title}](${item.path})`;
+%>
+<div class="resource">
+<div class="course-title"><%- title %></div>
+<% if (hasDesc || linkBtns.length) { %><div class="paper-toggles">
+<% if (hasDesc) { %><details class="paper-abstract"><summary>Description</summary><div class="abstract-body"><%- item.description %></div></details><% } %>
+<% if (linkBtns.length) { %><div class="paper-links"><% linkBtns.forEach(function (b) { %><a class="paper-btn" href="<%- b.href %>" target="_blank" rel="noopener"><%- b.label %></a><% }) %></div><% } %>
+</div><% } %>
+</div>
+<% } %>

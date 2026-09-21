@@ -1,0 +1,62 @@
+---
+title: "Some stata tools"
+weight: 2
+description: |
+    Stata workflow tips and tools that I find useful. 
+page-layout: article
+---
+
+<!-- See resources/project-management.qmd for the list of available fields. -->
+
+## Replacing `doedit`
+
+I like Stata's built-in `doedit` command for opening and creating script files, but have been using [sublime](https://www.sublimetext.com) as my main code editor. This code creates the `subledit` command which works exactly like Stata's native `doedit` command except that files are opened in sublime instead of in Stata's do editor.
+
+```stata
+program define subledit 
+    if substr("`1'",-3,.)==".do" {
+        local file_name = "`1'"
+    }
+    else {
+        local file_name = "`1'.do"
+    }
+    capture confirm file "`file_name'"
+    if !_rc {
+        shell "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" `file_name'
+    }
+    else {
+        shell cp "${template_path}/template.do" `file_name'
+        shell "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" `file_name'
+    }
+end
+```
+
+In the code above, if you are trying to create a new file (rather than open an existing one), the new file is created using a template do file stored somewhere on your computer.
+
+
+## Viewing graphs in server stata
+
+For me, the most inconvenient part of working on Stata via a terminal server connection is the inability to quickly see graphical output. This fix, which is due to my very savvy colleague [Paul Novosad](https://paulnovosad.com), works by posting the graph to the web (using the web server associated with your server machine) and then posting a link to the graph in the terminal:
+
+```stata
+program define graphout
+    quietly {
+        local print_date: di %tdNNDDYY daily("`c(current_date)'", "DMY")
+        local graph_name = subinstr("`1'"," ","",.)
+        if !mi("`graph_name'") {
+            local name_out   = "`print_date'_`graph_name'"
+        }
+        if mi("`graph_name'") {
+            local graph_name = lower(char(runiformint(65,90)))+string(runiformint(0,9))+char(runiformint(65,90))
+            local name_out   = "`print_date'_`graph_name'"
+        }
+        graph export "${web_path}/_tmp/`name_out'.pdf", replace
+        local link_out = "https://yourwebserver.com/_tmp/`name_out'.pdf"
+    }
+    shell echo -e '\e]8;;`link_out'\aclick to view graph\e]8;;\a'
+end 
+```
+
+This program creates random names for temporary graphs and posts them in a dedicated `_tmp` directory. I have my server stata configured to delete all contents of this directory each time it starts up.
+
+One could use a similar fix for replacing the `browse` command in server stata, by creating an HTML table from a subset of the existing dataset, posting that table to the web, and then creating and posting a link to that page.

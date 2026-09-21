@@ -1,0 +1,42 @@
+---
+pagetitle: "Resources"
+page-layout: full
+
+listing:
+  # id stays `resources-list` rather than `resources`: the "## Resources"
+  # heading on this page already takes #resources as its anchor id, and an
+  # id cannot appear twice in one document.
+  - id: resources-list
+    contents: resources
+    template: _resource.ejs
+    sort: "weight"
+    filter-ui: false
+    sort-ui: false
+---
+
+::: {.grid .stack-grid}
+
+{{< include _profile-sidebar.qmd >}}
+
+::: {.g-col-12 .g-col-md-8 .stack-main}
+
+<!-- Own page again (was a partial while everything was stacked). Its
+     listing definition is back in this file's own front matter. -->
+
+## Resources {#resources}
+
+Some assorted resources for students and research assistants. 
+
+::: {#resources-list}
+:::
+
+<!-- Entries live in resources/*.qmd, one file per resource, ordered by
+     `weight`. Unlike courses, every resource title links to its own sub-page
+     -- those sub-pages are NOT stacked, they stay separate pages.
+
+     The container id is `resources-list`, not `resources`: on a stacked page
+     the section anchor is already #resources, and an id cannot appear twice
+     in one document. See resources/project-management.qmd for the fields. -->
+:::
+
+:::

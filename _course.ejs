@@ -1,0 +1,59 @@
+<%
+// Course listing for the Teaching page. Deliberately parallel to _paper.ejs:
+// same single-line-output rule (Quarto runs this through a Markdown pass, so
+// indentation would be read as a code block), and the same "field non-empty ->
+// element appears" rule for every optional part.
+//
+// Renders: title, term, a collapsible Description, and link pills.
+//
+// CLASS NAMES: the pills deliberately reuse the .paper-* classes from the
+// Research page rather than defining a parallel .course-* set, so there is
+// exactly one pill implementation in the stylesheet. The one course-specific
+// rule is the open-state label ("Hide description" instead of "Hide
+// abstract"), scoped to .course in styles.scss. If these classes are ever
+// renamed to something neutral, both templates change together.
+for (const item of items) {
+  function resolveHref(v) {
+    const raw = String(v).trim();
+    return /^(https?:\/\/|mailto:|\/)/i.test(raw) ? raw : 'files/' + raw;
+  }
+
+  const hasDesc = item.description && String(item.description).trim().length > 0;
+
+  // Link pills. Add a field to this list to add a button. Bare filename -> a
+  // file in this site's own files/ folder; full URL -> used as given. So
+  // `syllabus: "econ28-syllabus.pdf"` and a Canvas URL both work.
+  //
+  // NOTE the field is `course_site`, not `website`. `website` is the top-level
+  // key in _quarto.yml, and Quarto merges site metadata into every listing
+  // item -- so `item.website` is the site config object, and the pill rendered
+  // unconditionally with href "files/[object Object]". Same trap as `journal`
+  // on the Research page: check a new field name against _quarto.yml's
+  // top-level keys before using it.
+  const linkBtns = [
+    ['syllabus', 'Syllabus'],
+    ['course_site', 'Course website'],
+  ].filter(function (b) { return item[b[0]] && String(item[b[0]]).trim().length > 0; })
+   .map(function (b) { return { href: resolveHref(item[b[0]]), label: b[1] }; });
+
+  // Title link. Unlinked unless a `link` field is set — course sub-pages are
+  // not built yet. TO LINK TITLES TO THEIR OWN SUB-PAGES LATER: replace the
+  // line below with `const titleHref = item.path;` (Quarto sets `path` on
+  // every listing item) and drop the `link` field from the course files.
+  //
+  // MARKDOWN, not HTML: Quarto's EJS escapes interpolated values, so an anchor
+  // built here would arrive on the page as visible text. Unquoted Pandoc
+  // attributes, because quotes would arrive as &quot;.
+  const titleHref = item.link || '';
+  const NEWTAB = '{target=_blank rel=noopener}';
+  const title = titleHref ? `[${item.title}](${resolveHref(titleHref)})${NEWTAB}` : item.title;
+%>
+<div class="course">
+<div class="course-title"><%- title %></div>
+<% if (item.term) { %><div class="course-meta"><%- item.term %></div><% } %>
+<% if (hasDesc || linkBtns.length) { %><div class="paper-toggles">
+<% if (hasDesc) { %><details class="paper-abstract"><summary>Description</summary><div class="abstract-body"><%- item.description %></div></details><% } %>
+<% if (linkBtns.length) { %><div class="paper-links"><% linkBtns.forEach(function (b) { %><a class="paper-btn" href="<%- b.href %>" target="_blank" rel="noopener"><%- b.label %></a><% }) %></div><% } %>
+</div><% } %>
+</div>
+<% } %>

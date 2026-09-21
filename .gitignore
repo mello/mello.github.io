@@ -1,0 +1,8 @@
+# Quarto build output — GitHub renders the site, so this never gets committed.
+/_site/
+/.quarto/
+
+# macOS
+.DS_Store
+
+**/*.quarto_ipynb

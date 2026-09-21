@@ -1,0 +1,56 @@
+---
+pagetitle: "Curriculum Vitae"
+page-layout: full
+resources:
+  - "files/cv.pdf"
+---
+
+::: {.grid .stack-grid}
+
+{{< include _profile-sidebar.qmd >}}
+
+::: {.g-col-12 .g-col-md-8 .stack-main}
+
+<!-- PARTIAL. Included by index.qmd.
+
+     CV is a separate page again, which is where this embed belongs: on a
+     stacked page the browser's PDF viewer captures the scroll wheel, and its
+     dark viewer chrome sits as a large grey block mid-page. Neither applies
+     here. The download link sits ABOVE the embed on purpose: mobile browsers frequently refuse
+     to render PDFs in an iframe, and this is the only route to the file for
+     every reader who sees an empty box.
+
+     target=_blank is set explicitly -- files/cv.pdf is on this site's own
+     host, so `link-external-newwindow` in _quarto.yml does not cover it. -->
+
+## Curriculum Vitae {#cv}
+
+```{=html}
+<style>
+.embed-container {
+    position: relative;
+    padding-bottom: 129.4%;   /* US Letter aspect ratio (11/8.5) */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    border: 1px solid #dee2e6;
+}
+.embed-container iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+}
+</style>
+
+<p class="text-center">
+  <a href="files/cv.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+</p>
+
+<div class="embed-container">
+  <iframe src="files/cv.pdf#toolbar=0" title="Curriculum vitae"></iframe>
+</div>
+```
+:::
+
+:::

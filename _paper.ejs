@@ -1,0 +1,95 @@
+<%
+// Stripped paper listing. Quarto passes `items` (already sorted by `weight`)
+// and runs this output through its Markdown pass — so each emitted element
+// must stay on a single flush-left line, or Markdown reads the indentation as
+// a code block. Emphasis in metadata (*AER*) is written as Markdown and
+// rendered by that pass.
+//
+// Renders: title, coauthors, venue, status, and a collapsible Abstract.
+// The Abstract uses the native <details>/<summary> element — no JavaScript,
+// keyboard accessible and screen-reader correct for free. It appears only for
+// papers whose `abstract` field is non-empty.
+// `bibtex` is still present in the files and still unused.
+for (const item of items) {
+  const authors = item.authors || [];
+  function resolveHref(v) {
+    const raw = String(v).trim();
+    return /^(https?:\/\/|mailto:|\/)/i.test(raw) ? raw : 'files/' + raw;
+  }
+
+  // Status line: `status` and `journal` are separate inputs so the journal can
+  // be italicised on its own. Either may be used alone.
+  // NOTE: the field is `journal_name`, not `journal` — `journal` is a reserved
+  // Quarto metadata key (journal-article formats expect an object there), and
+  // using it fails YAML schema validation at render time.
+  //   status + journal_name -> "Revise and resubmit, *Journal of Political Economy*"
+  //   status only      -> "Under review"
+  //   journal only     -> "*Journal of Urban Economics*"
+  let statusLine = '';
+  if (item.status && item.journal_name)      statusLine = `${item.status}, *${item.journal_name}*`;
+  else if (item.status)                 statusLine = String(item.status);
+  else if (item.journal_name)           statusLine = `*${item.journal_name}*`;
+
+  const hasAbstract = item.abstract && String(item.abstract).trim().length > 0;
+  const hasBibtex   = item.bibtex   && String(item.bibtex).trim().length > 0;
+  // Link pills. Same rule as Abstract/Cite: the button appears only if the
+  // field is present and non-empty. Add a field here to add a button.
+  // Bare filename -> a PDF in this site's own files/ folder. Full URL -> used
+  // as given. So `prepub: "cops.pdf"` and
+  // `prepub: "https://papers.ssrn.com/..."` both work, and self-hosted papers
+  // survive a change of domain because the domain is never typed.
+
+  const linkBtns = [
+    ['prepub',      'Pre-publication'],
+    ['replication', 'Replication'],
+  ].filter(function (b) { return item[b[0]] && String(item[b[0]]).trim().length > 0; })
+   .map(function (b) { return { href: resolveHref(item[b[0]]), label: b[1] }; });
+
+  // NBER working paper. The field takes just the NUMBER — "34175" or "w34175" —
+  // and both the label and the URL are derived from it, so the two can never
+  // disagree. NBER's URL scheme (/papers/wNNNNN) has been stable for decades.
+  // Escape hatch: paste a full http(s) URL and it is used verbatim, with a
+  // plain "NBER WP" label — for if that scheme ever changes.
+  if (item.nberwp && String(item.nberwp).trim().length > 0) {
+    const raw = String(item.nberwp).trim();
+    if (/^https?:\/\//i.test(raw)) {
+      linkBtns.push({ href: raw, label: 'NBER WP' });
+    } else {
+      const num = raw.replace(/^w/i, '');
+      linkBtns.push({ href: 'https://www.nber.org/papers/w' + num, label: 'NBER WP ' + num });
+    }
+  }
+  // MARKDOWN, not HTML: Quarto's EJS escapes interpolated values, so an anchor
+  // built here would arrive on the page as visible text. (Literal markup in
+  // the template body, like the <details> below, is NOT escaped.) This was a
+  // dormant bug — every `pdf` field is currently empty, so it never fired.
+  // (4) Title links to the best available target, in this order: the published
+  // version, then a hosted PDF, then the pre-publication copy. Matches the
+  // live site, where titles point at the journal page. Unlinked if none exist.
+  const titleHref = item.publisher || item.pdf || item.prepub || '';
+  // External links open in a new tab. Unquoted Pandoc attribute values,
+  // because Quarto's EJS HTML-escapes interpolated strings and quotes would
+  // arrive as &quot;. (Quarto's own `link-external-newwindow` option has no
+  // effect in this project — see the note in _quarto.yml.)
+  const NEWTAB = '{target=_blank rel=noopener}';
+  const title = titleHref ? `[${item.title}](${resolveHref(titleHref)})${NEWTAB}` : item.title;
+  let authorInner = '';
+  authors.forEach(function (a, i) {
+    authorInner += (i ? ', ' : '');
+    // MARKDOWN, not HTML — same reason as the title above. This was live on
+    // the page: the one coauthor with a url rendered as visible markup.
+    authorInner += a.url ? `[${a.name}](${a.url})${NEWTAB}` : a.name;
+  });
+%>
+<div class="paper">
+<div class="paper-title"><%- title %></div>
+<% if (authors.length) { %><div class="paper-authors">with <%- authorInner %></div><% } %>
+<% if (item.venue)  { %><div class="paper-venue"><%- item.venue %></div><% } %>
+<% if (statusLine) { %><div class="paper-status"><%- statusLine %></div><% } %>
+<% if (hasAbstract || hasBibtex || linkBtns.length) { %><div class="paper-toggles">
+<% if (hasAbstract) { %><details class="paper-abstract"><summary>Abstract</summary><div class="abstract-body"><%- item.abstract %></div></details><% } %>
+<% if (linkBtns.length) { %><div class="paper-links"><% linkBtns.forEach(function (b) { %><a class="paper-btn" href="<%- b.href %>" target="_blank" rel="noopener"><%- b.label %></a><% }) %></div><% } %>
+<% if (hasBibtex) { %><details class="paper-cite"><summary>Cite</summary><div class="cite-body"><button class="copy-btn" type="button">Copy</button><pre class="bibtex"><code><%= item.bibtex %></code></pre></div></details><% } %>
+</div><% } %>
+</div>
+<% } %>
