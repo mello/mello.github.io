@@ -1,5 +1,12 @@
 [
   {
+    "listing": "/teaching.html",
+    "items": [
+      "/courses/econ-20-econometrics.html",
+      "/courses/econ-28-public-finance.html"
+    ]
+  },
+  {
     "listing": "/resources.html",
     "items": [
       "/resources/project-management.html",
@@ -18,13 +25,6 @@
       "/papers/publications/fines-and-financial-wellbeing.html",
       "/papers/publications/racial-bias-in-policing.html",
       "/papers/publications/more-cops-less-crime.html"
-    ]
-  },
-  {
-    "listing": "/teaching.html",
-    "items": [
-      "/courses/econ-20-econometrics.html",
-      "/courses/econ-28-public-finance.html"
     ]
   }
 ]
