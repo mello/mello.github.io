@@ -1,0 +1,30 @@
+[
+  {
+    "listing": "/resources.html",
+    "items": [
+      "/resources/project-management.html",
+      "/resources/stata-tools.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/papers/working/selection-bias-police-use-of-force.html",
+      "/papers/working/diversity-training-police.html",
+      "/papers/working/redlining-neighborhood-violence.html",
+      "/papers/working/value-of-policing.html",
+      "/papers/working/car-repairs-small-shocks.html",
+      "/papers/publications/police-discretion-public-safety.html",
+      "/papers/publications/fines-and-financial-wellbeing.html",
+      "/papers/publications/racial-bias-in-policing.html",
+      "/papers/publications/more-cops-less-crime.html"
+    ]
+  },
+  {
+    "listing": "/teaching.html",
+    "items": [
+      "/courses/econ-20-econometrics.html",
+      "/courses/econ-28-public-finance.html"
+    ]
+  }
+]
