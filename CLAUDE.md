@@ -4,6 +4,11 @@ Steve Mello's academic website. Quarto source; GitHub Actions renders it and pub
 
 Longer design history, sources of inspiration and rejected options are in Steve's Obsidian vault at `💾 Computing/Website — Current build.md`. This file is the operational context.
 
+**Where things live:**
+
+- `~/repos/mello.github.io/` — this repo, the only live source. Outside Dropbox deliberately: Dropbox syncing `.git/` corrupts repositories.
+- `~/Dropbox (Personal)/reference/academic_website/` — archive. Holds the `website_revamp/` working directory used before deployment (a dozen design experiments, plus `scratchpad-rewind/` snapshots), a zip of the hand-written site this replaced, and older iterations. Reference only; never the source.
+
 ---
 
 ## Deployment — read this before anything else
@@ -17,6 +22,17 @@ edit a .qmd on main  →  commit  →  push  →  Action renders  →  gh-pages 
 `.github/workflows/publish.yml` does the rendering on GitHub. Local `quarto render` and `quarto preview` are for *looking at* work, never for publishing. If a render fails, the Action fails and the previous site stays up.
 
 `gh-pages` is machine-generated. Never edit or commit to it by hand.
+
+### If a deploy breaks
+
+Setting this up hit four things, any of which can recur:
+
+- The personal access token needs **both `repo` and `workflow` scopes**; pushing anything under `.github/workflows/` fails without the second.
+- Repository **Settings > Actions > General > Workflow permissions** must be "Read and write". The repo setting caps what the workflow's `permissions:` block can request.
+- Quarto's publish action **will not create `gh-pages`** — it must already exist. One local `quarto publish gh-pages` initialises it. This is the only time that command is ever run.
+- Pages source must be set to `gh-pages` **by hand** for user sites; GitHub only auto-detects it for project repos.
+
+Action logs need auth, so ask Steve to paste the error rather than trying to fetch them.
 
 ## Running it locally
 
@@ -82,6 +98,8 @@ Do not raise it for breathing room — sticky pushes an element *down* when `top
 **`website`, `journal`, `project` and `format` are reserved Quarto keys.** A `website:` field in a listing item silently resolves to the whole site config. The paper template uses `journal_name` for this reason.
 
 **Fenced divs wrap content in a `<p>`,** and Bootstrap's `p { margin-bottom: 1rem }` collapses through the div — so a div margin under 1rem does nothing. Zero the inner paragraph to regain control.
+
+**Gaps in a CSS grid do not shrink, and `.grid` has eleven of them.** Quarto's `.grid` is `repeat(12, 1fr)` with a gap between every pair, whatever the children span. A `column-gap` of 2.5rem is therefore 11 x 44px = 484px of irreducible width — wider than a phone viewport, so every page scrolled sideways. Fixed by zeroing `column-gap` below 768px, where both children are full width anyway. Watch for this with any grid gap: multiply by eleven before assuming it fits.
 
 **Grep patterns miss grouped selectors.** The rule setting `h3` spacing is `h3, .h3, h4, .h4 { margin-top: 1.5rem }`, invisible to a search for `h3,.h3{`.
 
