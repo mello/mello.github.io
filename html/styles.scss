@@ -549,6 +549,20 @@ img.profile-photo {
 // `sticky` would pin the portrait over the text as you scroll. Unpin it and let
 // it behave as an ordinary header block.
 @media (max-width: 767.98px) {
+  // THE COLUMN GAP MUST GO once the columns stack, or the page scrolls
+  // sideways on every phone.
+  //
+  // Quarto's `.grid` is `repeat(12, 1fr)` with a gap between each pair, so
+  // eleven gaps sit inside it whatever the children span. Gaps do not shrink:
+  // at 2.5rem (44px here, since the root is 17.6px) that is 11 x 44 = 484px of
+  // irreducible width, against a 390-430px phone viewport. Below this
+  // breakpoint both children are full width, so the column gap buys nothing
+  // and only forces the overflow. Row gap stays, and is what separates the
+  // stacked sidebar from the content.
+  .stack-grid {
+    column-gap: 0;
+  }
+
   .profile-sidebar {
     position: static;
     margin-bottom: 1.5rem;
