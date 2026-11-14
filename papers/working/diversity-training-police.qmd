@@ -1,5 +1,5 @@
 ---
-title: "Diversity training and employee behavior: Evidence from the police"
+title: "Police training and racial disparities: Evidence from the Texas Highway Patrol"
 weight: 2
 authors:
   - name: "Matt Ross"
@@ -13,7 +13,7 @@ statusType: "revision"
 pdf: "training.pdf"
 nber: ""
 abstract: |
-  We study the effects of cultural diversity training on employee behavior in the context of policing. Leveraging variation in the timing of a mandated diversity training, we find that Texas highway patrol officers respond to training by adjusting their racial composition of stops. The probability that a stopped motorist is white increases by 1.3 percentage points over the two years after training, and officers achieve this by stopping additional white motorists rather than reducing their stops of minorities. We find evidence that officers stop less “guilty” white motorists after training, suggesting that the training reduces troopers’ lenience towards white drivers. 
+  We study the effects of training on racial disparities in the enforcement behavior of early-career Texas Highway Patrol officers. Exploiting the staggered timing of mandated in-service trainings, we find that race-focused trainings increase the White share of stops by 1.7 percentage points, whereas trainings focused on enforcement procedures have no impact on racial disparities. Changes in stop composition are driven by increased enforcement of White motorists and are consistent with a 30 percent decline in discrimination as measured by a “veil-of-darkness” test. Impacts of a cultural diversity training emphasizing racial stereotyping are particularly pronounced, highlighting the importance of curriculum details.
 bibtex: ""
 prepub: ""
 replication: ""
